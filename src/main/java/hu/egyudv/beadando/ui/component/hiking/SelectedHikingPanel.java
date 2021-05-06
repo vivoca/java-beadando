@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.hiking;
 
 import hu.egyudv.beadando.repository.entity.Difficulty;
 import hu.egyudv.beadando.repository.entity.Hiking;
@@ -89,8 +89,10 @@ public class SelectedHikingPanel {
         nameTextField.setText(selectedHiking.getName());
         lengthTextField.setText(Double.toString(selectedHiking.getLength()));
         locationTextField.setText(selectedHiking.getLocation());
-        difficultySpinner.setValue(selectedHiking.getDifficulty());
+        if (selectedHiking.getDifficulty() != null) {
+            difficultySpinner.setValue(selectedHiking.getDifficulty());
 //        difficultyFieldLabel.setText(selectedHiking.getDifficulty().label);
+        }
         descriptionTextField.setText(selectedHiking.getDescription());
     }
 

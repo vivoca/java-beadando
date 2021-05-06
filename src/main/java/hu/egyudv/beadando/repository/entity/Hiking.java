@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.repository;
+package hu.egyudv.beadando.repository.entity;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -17,7 +17,6 @@ public class Hiking {
     private double length;
 
     @CsvBindByName(column = "difficulty")
-    private String difficultyString;
     private Difficulty difficulty;
 
     @CsvBindByName(column = "description")
@@ -60,7 +59,6 @@ public class Hiking {
     }
 
     public void setDifficulty(Difficulty difficulty) {
-        this.difficultyString = difficulty.toString();
         this.difficulty = difficulty;
     }
 
@@ -70,5 +68,17 @@ public class Hiking {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Hiking{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", length=" + length +
+                ", difficulty=" + difficulty +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

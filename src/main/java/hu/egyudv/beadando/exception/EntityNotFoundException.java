@@ -1,7 +1,7 @@
-package hu.egyudv.java.exception;
+package hu.egyudv.beadando.exception;
 
-public class EntityNotfoundException extends RuntimeException {
-    public EntityNotfoundException(String format) {
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(String format) {
         super(format);
     }
 }

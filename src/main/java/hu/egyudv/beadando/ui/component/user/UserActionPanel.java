@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.user;
 
 import hu.egyudv.beadando.repository.UserRepository;
 import hu.egyudv.beadando.repository.UserRepositoryFile;
@@ -38,6 +38,7 @@ public class UserActionPanel {
                 UserService userService = new UserServiceImpl(userRepository);
 
                 userService.save(user);
+                userViewPanel.refreshUserList();
 
             }
         });
@@ -56,6 +57,8 @@ public class UserActionPanel {
                     UserService userService = new UserServiceImpl(userRepository);
 
                     userService.delete(user.getId());
+                    userViewPanel.setSelectedUser(null);
+                    userViewPanel.refreshUserList();
                 } else {
                     System.out.println("ERROR - User not selected");
                 }

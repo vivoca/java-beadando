@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.model;
+package hu.egyudv.beadando.service;
 
 import java.util.List;
 

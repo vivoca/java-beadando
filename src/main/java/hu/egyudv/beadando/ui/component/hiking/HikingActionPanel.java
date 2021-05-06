@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.hiking;
 
 import com.opencsv.bean.validators.MustMatchRegexExpression;
 import hu.egyudv.beadando.repository.HikingRepository;
@@ -38,6 +38,7 @@ public class HikingActionPanel {
                 HikingService hikingService = new HikingServiceImpl(hikingRepository);
 
                 hikingService.save(hiking);
+                hikingViewPanel.refreshHikingList();
             }
         });
 
@@ -46,7 +47,19 @@ public class HikingActionPanel {
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // todo
+                Hiking hiking = hikingViewPanel.getSelectedHiking();
+                if (hiking.getId() != null) {
+                    System.out.println("delete: " + hiking);
+
+                    HikingRepository hikingRepository = new HikingRepositoryFile();
+                    HikingService hikingService = new HikingServiceImpl(hikingRepository);
+
+                    hikingService.delete(hiking.getId());
+                    hikingViewPanel.setSelectedHiking(null);
+                    hikingViewPanel.refreshHikingList();
+                } else {
+                    System.out.println("ERROR - Hiking not selected");
+                }
             }
         });
 
@@ -55,7 +68,7 @@ public class HikingActionPanel {
         usersBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // todo
+                hikingViewPanel.refreshUserTable();
             }
         });
 
@@ -64,7 +77,7 @@ public class HikingActionPanel {
         clearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // todo
+                hikingViewPanel.setSelectedHiking(null);
             }
         });
     }

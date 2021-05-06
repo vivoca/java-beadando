@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.model;
+package hu.egyudv.beadando.service;
 
 import hu.egyudv.beadando.repository.entity.User;
 import hu.egyudv.beadando.repository.UserRepository;

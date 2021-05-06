@@ -1,9 +1,11 @@
-package hu.egyudv.beadando.model;
+package hu.egyudv.beadando.service;
 
 import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.repository.HikingRepository;
+import hu.egyudv.beadando.repository.entity.User;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -31,26 +33,9 @@ public class HikingServiceImpl implements HikingService {
         return hikingRepository.get(id);
     }
 
-    @Override
-    public void feladatFelvetel(String munkagepId, String feladatId) {
-//        Feladat feladat = feladatRepository.get(feladatId);
-//        Munkagep munkagep = hikingRepository.get(munkagepId);
-//
-//        if (feladat == null) {
-//            throw new EntityNotfoundException(String.format("no such task %s", feladatId));
-//        }
-//
-//        if (munkagep == null) {
-//            throw new EntityNotfoundException(String.format("no such machine %s", munkagepId));
-//        }
-//
-//        if (!feladat.getFeladatTipus().equals(munkagep.getFeladatTipus())) {
-//            throw new IncompatibilityTaskException();
-//        }
-//
-//        munkagep.getFeladatList().add(feladat);
-//
-//        hikingRepository.save(munkagep);
 
+    @Override
+    public List<User> getUserCompletedList(String id) {
+        return hikingRepository.getUserCompletedList(id);
     }
 }

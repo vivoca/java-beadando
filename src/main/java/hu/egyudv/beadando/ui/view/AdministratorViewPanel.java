@@ -1,2 +1,4 @@
-package hu.egyudv.beadando.ui.dialog;public class AdministratorViewPanel {
+package hu.egyudv.beadando.ui.view;
+
+public class AdministratorViewPanel {
 }

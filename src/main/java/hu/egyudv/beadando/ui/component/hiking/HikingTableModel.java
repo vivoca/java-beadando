@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.hiking;
 
 import hu.egyudv.beadando.repository.entity.Hiking;
 
@@ -11,7 +11,7 @@ public class HikingTableModel extends AbstractTableModel {
     private List<Hiking> hikingList = new ArrayList();
     private String[] columnNames = {
             "Name",
-            "Length",
+            "Length(km)",
             "Location",
             "Difficulty",
             "Description"

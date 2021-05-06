@@ -1,8 +1,10 @@
-package hu.egyudv.beadando.repository;
+package hu.egyudv.beadando.repository.entity;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
+import hu.egyudv.beadando.repository.HikingRepository;
+import hu.egyudv.beadando.repository.HikingRepositoryFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -60,7 +62,11 @@ public class User {
     }
 
     public String getFormattedBirthDate() {
-        return new SimpleDateFormat("yyyy.MM.dd").format(birthDate);
+        try {
+            return new SimpleDateFormat("yyyy.MM.dd").format(birthDate);
+        } catch (Exception ex) {
+            return "";
+        }
     }
 
     public void setBirthDate(Date birthDate) {

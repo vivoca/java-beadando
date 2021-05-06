@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.user;
 
 import hu.egyudv.beadando.repository.entity.User;
 

@@ -1,10 +1,14 @@
-package hu.egyudv.beadando.ui;
+package hu.egyudv.beadando.ui.view;
 
 import hu.egyudv.beadando.repository.UserRepository;
 import hu.egyudv.beadando.repository.UserRepositoryFile;
 import hu.egyudv.beadando.repository.entity.User;
 import hu.egyudv.beadando.service.UserService;
 import hu.egyudv.beadando.service.UserServiceImpl;
+import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
+import hu.egyudv.beadando.ui.component.user.SelectedUserPanel;
+import hu.egyudv.beadando.ui.component.user.UserActionPanel;
+import hu.egyudv.beadando.ui.component.user.UserTableModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,23 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class UserDialogPanel {
+public class UserViewPanel {
     private JPanel userPanel;
     private JTable userTable;
     private JTable hikingTable;
 
     private User selectedUser;
-    private List<User> userList;
+    private List<User> userList  = new ArrayList<>();
     private SelectedUserPanel selectedUserPanel;
 
-    public UserDialogPanel() {
+    public UserViewPanel() {
         Insets defaultInsets = new Insets(5,25,5,25);
 
         userPanel = new JPanel();
         GridBagConstraints layoutConstraints = new GridBagConstraints();
         userPanel.setLayout(new GridBagLayout());
-
-        refreshUserList();
 
         JButton refreshBtn = new JButton("Refresh User Table");
         layoutConstraints.weightx = 0.5;
@@ -45,7 +47,6 @@ public class UserDialogPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 refreshUserList();
-                userTable.setModel(new UserTableModel(userList));
             }
         });
         //default
@@ -62,7 +63,10 @@ public class UserDialogPanel {
                 if (e.getValueIsAdjusting()) {
                     return;
                 }
-                selectedUser = userList.get(userTable.getSelectedRow()); // todo indexOutOfBounds refreshkor
+                int rowNum = userTable.getSelectedRow();
+                if (rowNum >= 0) {
+                    selectedUser = userList.get(userTable.getSelectedRow());
+                }
                 selectedUserPanel.handleSelectedUserChange(selectedUser);
                 hikingTable.setModel(new HikingTableModel(new ArrayList<>()));
             }
@@ -86,10 +90,9 @@ public class UserDialogPanel {
         actionGridLayout.setHgap(5);
         actionGridLayout.setVgap(5);
         actionPanel.setLayout(actionGridLayout);
-        actionPanel.setSize(new Dimension(500, 200));
 
 
-        selectedUserPanel = new SelectedUserPanel();
+        selectedUserPanel = new SelectedUserPanel(true);
         actionPanel.add(selectedUserPanel.getSelectedUserPanel());
         actionPanel.add(new UserActionPanel(this).getUserActionPanel());
         layoutConstraints.gridx = 0;
@@ -119,6 +122,8 @@ public class UserDialogPanel {
         layoutConstraints.gridy = 4;
         userPanel.add(hikingScrollPane, layoutConstraints);
 
+        refreshUserList();
+
     }
 
     public JPanel getUserPanel() {
@@ -129,20 +134,21 @@ public class UserDialogPanel {
         UserRepository userRepository = new UserRepositoryFile();
         UserService userService = new UserServiceImpl(userRepository);
         userList = userService.all();
+        userTable.setModel(new UserTableModel(userList));
     }
 
-    protected User getSelectedUser() {
+    public User getSelectedUser() {
         selectedUser = selectedUserPanel.getUserData();
         return selectedUser;
     }
 
-    protected void setSelectedUser(User user) {
+    public void setSelectedUser(User user) {
+        userTable.clearSelection();
         selectedUser = Objects.requireNonNullElseGet(user, User::new);
         selectedUserPanel.handleSelectedUserChange(selectedUser);
     }
 
-    protected void refreshHikingTable() {
-        System.out.println("refreshHikingTable - " + selectedUser);
+    public void refreshHikingTable() {
         if (selectedUser != null) {
             hikingTable.setModel(new HikingTableModel(selectedUser.getCompletedHikingList()));
         }
