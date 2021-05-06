@@ -1,4 +1,4 @@
-package org.example.model;
+package hu.egyudv.beadando.model;
 
 import java.util.List;
 

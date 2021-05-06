@@ -1,10 +1,11 @@
-package org.example;
+package hu.egyudv.java;
 
-import org.example.exception.IncompatibilityTaskException;
-import org.example.model.FeladatService;
-import org.example.model.FeladatServiceImpl;
-import org.example.model.MunkagepService;
-import org.example.model.MunkagepServiceImpl;
+import hu.egyudv.java.model.MunkagepServiceImpl;
+import hu.egyudv.java.repository.*;
+import hu.egyudv.java.exception.IncompatibilityTaskException;
+import hu.egyudv.java.model.FeladatService;
+import hu.egyudv.java.model.FeladatServiceImpl;
+import hu.egyudv.java.model.MunkagepService;
 import org.example.repository.*;
 
 import java.util.ArrayList;
