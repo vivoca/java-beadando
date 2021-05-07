@@ -129,8 +129,7 @@ public class HikingViewPanel {
     }
 
     public void refreshHikingList() {
-        HikingRepository hikingRepository = new HikingRepositoryFile();
-        HikingService hikingService = new HikingServiceImpl(hikingRepository);
+        HikingService hikingService = new HikingServiceImpl();
         hikingList = hikingService.all();
         hikingTable.setModel(new HikingTableModel(hikingList));
     }

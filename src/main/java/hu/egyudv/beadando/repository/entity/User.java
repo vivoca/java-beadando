@@ -6,6 +6,7 @@ import com.opencsv.bean.CsvDate;
 import hu.egyudv.beadando.repository.HikingRepository;
 import hu.egyudv.beadando.repository.HikingRepositoryFile;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,7 +75,9 @@ public class User {
     }
 
     public void setFormattedBirthDate(String birthDate) throws ParseException {
-        this.birthDate = new SimpleDateFormat("yyyy.MM.dd").parse(birthDate);
+        DateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        sdf.setLenient(false);
+        this.birthDate = sdf.parse(birthDate);
     }
 
     public String getMobile() {

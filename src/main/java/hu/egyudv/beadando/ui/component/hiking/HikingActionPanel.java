@@ -35,8 +35,7 @@ public class HikingActionPanel extends BasePanel {
                 if (hiking != null) {
                     System.out.println("save: " + hiking);
 
-                    HikingRepository hikingRepository = new HikingRepositoryFile();
-                    HikingService hikingService = new HikingServiceImpl(hikingRepository);
+                    HikingService hikingService = new HikingServiceImpl();
 
                     hikingService.save(hiking);
                     hikingViewPanel.refreshHikingList();
@@ -57,8 +56,7 @@ public class HikingActionPanel extends BasePanel {
                 if (hiking != null) {
                     System.out.println("delete: " + hiking);
 
-                    HikingRepository hikingRepository = new HikingRepositoryFile();
-                    HikingService hikingService = new HikingServiceImpl(hikingRepository);
+                    HikingService hikingService = new HikingServiceImpl();
 
                     hikingService.delete(hiking.getId());
                     hikingViewPanel.setSelectedHiking(null);

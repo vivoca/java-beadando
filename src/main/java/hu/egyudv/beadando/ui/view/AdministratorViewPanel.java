@@ -122,8 +122,7 @@ public class AdministratorViewPanel {
         userList = userService.all();
         userTable.setModel(new UserTableModel(userList));
 
-        HikingRepository hikingRepository = new HikingRepositoryFile();
-        HikingService hikingService = new HikingServiceImpl(hikingRepository);
+        HikingService hikingService = new HikingServiceImpl();
         hikingList = hikingService.all();
         hikingTable.setModel(new HikingTableModel(hikingList));
     }

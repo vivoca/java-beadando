@@ -1,17 +1,15 @@
 package hu.egyudv.beadando.service;
 
+import hu.egyudv.beadando.model.WeatherData;
+import hu.egyudv.beadando.repository.HikingRepositoryFile;
 import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.repository.HikingRepository;
-import hu.egyudv.beadando.repository.entity.User;
-import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class HikingServiceImpl implements HikingService {
 
-    private final HikingRepository hikingRepository;
+    private final HikingRepository hikingRepository = new HikingRepositoryFile();
 
     @Override
     public List<Hiking> all() {
@@ -33,4 +31,14 @@ public class HikingServiceImpl implements HikingService {
         return hikingRepository.get(id);
     }
 
+    @Override
+    public WeatherData getRelatedWeatherData(String location) {
+        WeatherService weatherService = new WeatherServiceImpl();
+        try {
+            return weatherService.getDataByCity(location);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -3,6 +3,7 @@ package hu.egyudv.beadando.ui;
 import hu.egyudv.beadando.ui.view.AdministratorViewPanel;
 import hu.egyudv.beadando.ui.view.HikingViewPanel;
 import hu.egyudv.beadando.ui.view.UserViewPanel;
+import hu.egyudv.beadando.ui.view.WeatherViewPanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,28 +22,22 @@ public class MainGUI implements ItemListener {
         JLabel menuChooseLabel = new JLabel();
         menuChooseLabel.setText("Choose a menu: ");
         comboBoxPane.add(menuChooseLabel);
-        String comboBoxItems[] = {ADMINISTRATOR_MENU, USER_MENU, HIKING_MENU, STATISTICS_MENU, WEATHER_FORECAST_MENU};
+        String comboBoxItems[] = {ADMINISTRATOR_MENU, USER_MENU, HIKING_MENU, WEATHER_FORECAST_MENU};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
         comboBoxPane.add(cb);
 
-        JPanel card0 = new JPanel();
-        card0.add(new JLabel("Administration Coming Soon..."));
-
         JPanel card3 = new JPanel();
         card3.add(new JLabel("Statistics Coming Soon..."));
-
-        JPanel card4 = new JPanel();
-        card4.add(new JLabel("Weather Forecast Coming Soon..."));
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         cards.add(new AdministratorViewPanel().getAdminPanel(), ADMINISTRATOR_MENU);
         cards.add(new UserViewPanel().getUserPanel(), USER_MENU);
         cards.add(new HikingViewPanel().getHikingPanel(), HIKING_MENU);
-        cards.add(card3, STATISTICS_MENU);
-        cards.add(card4, WEATHER_FORECAST_MENU);
+//        cards.add(card3, STATISTICS_MENU);
+        cards.add(new WeatherViewPanel().getWeatherPanel(), WEATHER_FORECAST_MENU);
 
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -71,7 +66,7 @@ public class MainGUI implements ItemListener {
 
         //Display the window.
         frame.pack();
-        frame.setSize(650,650);
+        frame.setSize(950,650);
         frame.setVisible(true);
     }
 

@@ -18,7 +18,7 @@ public class App {
         HikingRepository hikingRepository = new HikingRepositoryFile();
 
         UserService userService = new UserServiceImpl(userRepository);
-        HikingService hikingService = new HikingServiceImpl(hikingRepository);
+        HikingService hikingService = new HikingServiceImpl();
 
 //        User user01 = new User();
 //        user01.setName("Test User 01");
