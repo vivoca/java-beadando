@@ -5,6 +5,7 @@ import hu.egyudv.beadando.repository.UserRepositoryFile;
 import hu.egyudv.beadando.repository.entity.User;
 import hu.egyudv.beadando.service.UserService;
 import hu.egyudv.beadando.service.UserServiceImpl;
+import hu.egyudv.beadando.ui.component.BasePanel;
 import hu.egyudv.beadando.ui.view.UserViewPanel;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UserActionPanel {
+public class UserActionPanel extends BasePanel {
 
     private UserViewPanel userViewPanel;
     private JPanel userActionPanel;
@@ -32,6 +33,7 @@ public class UserActionPanel {
             public void actionPerformed(ActionEvent e) {
 
                 User user = userViewPanel.getSelectedUser();
+                if (user != null) {
                 System.out.println("save: " + user);
 
                 UserRepository userRepository = new UserRepositoryFile();
@@ -39,6 +41,11 @@ public class UserActionPanel {
 
                 userService.save(user);
                 userViewPanel.refreshUserList();
+                showMsg("Save Done\nUser: " + user.getFirstName() + " " + user.getLastName(), MessageType.INFO);
+                } else {
+                    System.out.println("ERROR - User not selected");
+                    showMsg("Save ERROR\nUser not selected ", MessageType.ERROR);
+                }
 
             }
         });
@@ -50,7 +57,7 @@ public class UserActionPanel {
             public void actionPerformed(ActionEvent e) {
 
                 User user = userViewPanel.getSelectedUser();
-                if (user.getId() != null) {
+                if (user != null) {
                     System.out.println("delete: " + user);
 
                     UserRepository userRepository = new UserRepositoryFile();
@@ -59,10 +66,11 @@ public class UserActionPanel {
                     userService.delete(user.getId());
                     userViewPanel.setSelectedUser(null);
                     userViewPanel.refreshUserList();
+                    showMsg("Delete Done\nUser: " + user.getFirstName() + " " + user.getLastName(), MessageType.INFO);
                 } else {
                     System.out.println("ERROR - User not selected");
+                    showMsg("Delete ERROR\nUser not selected ", MessageType.ERROR);
                 }
-
             }
         });
 

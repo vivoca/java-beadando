@@ -1,5 +1,6 @@
 package hu.egyudv.beadando.ui;
 
+import hu.egyudv.beadando.ui.view.AdministratorViewPanel;
 import hu.egyudv.beadando.ui.view.HikingViewPanel;
 import hu.egyudv.beadando.ui.view.UserViewPanel;
 
@@ -37,7 +38,7 @@ public class MainGUI implements ItemListener {
 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(card0, ADMINISTRATOR_MENU);
+        cards.add(new AdministratorViewPanel().getAdminPanel(), ADMINISTRATOR_MENU);
         cards.add(new UserViewPanel().getUserPanel(), USER_MENU);
         cards.add(new HikingViewPanel().getHikingPanel(), HIKING_MENU);
         cards.add(card3, STATISTICS_MENU);
@@ -51,6 +52,8 @@ public class MainGUI implements ItemListener {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, (String)evt.getItem());
     }
+
+
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -68,7 +71,7 @@ public class MainGUI implements ItemListener {
 
         //Display the window.
         frame.pack();
-        frame.setSize(600,600);
+        frame.setSize(650,650);
         frame.setVisible(true);
     }
 

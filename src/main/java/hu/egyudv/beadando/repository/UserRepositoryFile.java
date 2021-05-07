@@ -6,6 +6,7 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import hu.egyudv.beadando.exception.EntityNotFoundException;
+import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.repository.entity.User;
 
 import java.io.FileWriter;
@@ -22,6 +23,8 @@ public class UserRepositoryFile implements UserRepository {
     private List<User> objectList = new ArrayList<>();
     private static final String FILE_PATH = "dataFiles/users.csv";
     private FileHandler fileHandler;
+
+    private final UserHikingRepository userHikingRepository = new UserHikingRepositoryFile();
 
 
     @Override

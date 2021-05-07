@@ -1,5 +1,6 @@
 package hu.egyudv.beadando.service;
 
+import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.repository.entity.User;
 import hu.egyudv.beadando.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

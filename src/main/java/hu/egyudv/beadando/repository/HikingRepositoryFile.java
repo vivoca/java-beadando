@@ -24,6 +24,7 @@ public class HikingRepositoryFile implements HikingRepository{
     private static final String FILE_PATH = "dataFiles/hikings.csv";
     private FileHandler fileHandler;
 
+    private final UserHikingRepository userHikingRepository = new UserHikingRepositoryFile();
 
     @Override
     public List<Hiking> all() {

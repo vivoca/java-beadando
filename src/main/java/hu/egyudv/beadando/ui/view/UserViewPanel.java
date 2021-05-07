@@ -2,7 +2,10 @@ package hu.egyudv.beadando.ui.view;
 
 import hu.egyudv.beadando.repository.UserRepository;
 import hu.egyudv.beadando.repository.UserRepositoryFile;
+import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.service.UserHikingService;
+import hu.egyudv.beadando.service.UserHikingServiceImpl;
 import hu.egyudv.beadando.service.UserService;
 import hu.egyudv.beadando.service.UserServiceImpl;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
@@ -150,7 +153,9 @@ public class UserViewPanel {
 
     public void refreshHikingTable() {
         if (selectedUser != null) {
-            hikingTable.setModel(new HikingTableModel(selectedUser.getCompletedHikingList()));
+            UserHikingService userHikingService = new UserHikingServiceImpl();
+            List<Hiking> hikingList = userHikingService.getHikingListByUser(selectedUser.getId());
+            hikingTable.setModel(new HikingTableModel(hikingList));
         }
     }
 

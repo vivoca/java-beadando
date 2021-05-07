@@ -1,11 +1,11 @@
 package hu.egyudv.beadando.ui.component.hiking;
 
-import com.opencsv.bean.validators.MustMatchRegexExpression;
 import hu.egyudv.beadando.repository.HikingRepository;
 import hu.egyudv.beadando.repository.HikingRepositoryFile;
 import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
+import hu.egyudv.beadando.ui.component.BasePanel;
 import hu.egyudv.beadando.ui.view.HikingViewPanel;
 
 import javax.swing.*;
@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class HikingActionPanel {
+public class HikingActionPanel extends BasePanel {
 
     private HikingViewPanel hikingViewPanel;
     private JPanel hikingActionPanel;
@@ -32,13 +32,19 @@ public class HikingActionPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Hiking hiking = hikingViewPanel.getSelectedHiking();
-                System.out.println("save: " + hiking);
+                if (hiking != null) {
+                    System.out.println("save: " + hiking);
 
-                HikingRepository hikingRepository = new HikingRepositoryFile();
-                HikingService hikingService = new HikingServiceImpl(hikingRepository);
+                    HikingRepository hikingRepository = new HikingRepositoryFile();
+                    HikingService hikingService = new HikingServiceImpl(hikingRepository);
 
-                hikingService.save(hiking);
-                hikingViewPanel.refreshHikingList();
+                    hikingService.save(hiking);
+                    hikingViewPanel.refreshHikingList();
+                    showMsg("Save Done\nHiking: " + hiking.getName(), MessageType.INFO);
+                } else {
+                    System.out.println("ERROR - Hiking not selected");
+                    showMsg("Save ERROR\nHiking not selected", MessageType.ERROR);
+                }
             }
         });
 
@@ -48,7 +54,7 @@ public class HikingActionPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Hiking hiking = hikingViewPanel.getSelectedHiking();
-                if (hiking.getId() != null) {
+                if (hiking != null) {
                     System.out.println("delete: " + hiking);
 
                     HikingRepository hikingRepository = new HikingRepositoryFile();
@@ -57,8 +63,10 @@ public class HikingActionPanel {
                     hikingService.delete(hiking.getId());
                     hikingViewPanel.setSelectedHiking(null);
                     hikingViewPanel.refreshHikingList();
+                    showMsg("Delete Done\nHiking: " + hiking.getName(), MessageType.INFO);
                 } else {
                     System.out.println("ERROR - Hiking not selected");
+                    showMsg("Delete ERROR\nHiking not selected", MessageType.ERROR);
                 }
             }
         });
@@ -72,7 +80,7 @@ public class HikingActionPanel {
             }
         });
 
-        JButton  clearBtn = new JButton("Clear");
+        JButton clearBtn = new JButton("Clear");
         hikingActionPanel.add(clearBtn);
         clearBtn.addActionListener(new ActionListener() {
             @Override

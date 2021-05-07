@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface HikingService extends GeneralService<Hiking> {
 
-    List<User> getUserCompletedList(String id);
 }

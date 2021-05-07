@@ -2,13 +2,12 @@ package hu.egyudv.beadando.ui.component.hiking;
 
 import hu.egyudv.beadando.repository.entity.Difficulty;
 import hu.egyudv.beadando.repository.entity.Hiking;
-import org.apache.commons.lang3.builder.Diff;
+import hu.egyudv.beadando.ui.component.BasePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
-public class SelectedHikingPanel {
+public class SelectedHikingPanel extends BasePanel {
 
     private JPanel selectedHikingPanel;
     private JLabel nameLabel;
@@ -19,7 +18,7 @@ public class SelectedHikingPanel {
     private JTextField nameTextField;
     private JTextField lengthTextField;
     private JTextField locationTextField;
-    private JLabel difficultyFieldLabel;
+    private JTextField difficultyTextField;
     private JSpinner difficultySpinner;
     private JTextField descriptionTextField;
 
@@ -43,7 +42,7 @@ public class SelectedHikingPanel {
         nameTextField.setEditable(editable);
         selectedHikingPanel.add(nameTextField);
 
-        lengthLabel = new JLabel ("Length");
+        lengthLabel = new JLabel ("Length (n.n)");
         selectedHikingPanel.add(lengthLabel);
 
         lengthTextField = new JTextField();
@@ -60,14 +59,15 @@ public class SelectedHikingPanel {
         difficultyLabel = new JLabel ("Difficulty");
         selectedHikingPanel.add(difficultyLabel);
 
+        SpinnerListModel listModel = new SpinnerListModel(Difficulty.values());
+        difficultySpinner = new JSpinner(listModel);
+        difficultySpinner.setEditor(new JSpinner.DefaultEditor(difficultySpinner));
+        difficultyTextField = new JTextField();
+        difficultyTextField.setEditable(false);
         if (editable) {
-            SpinnerListModel listModel = new SpinnerListModel(Difficulty.values());
-            difficultySpinner = new JSpinner(listModel);
-            difficultySpinner.setEditor(new JSpinner.DefaultEditor(difficultySpinner));
             selectedHikingPanel.add(difficultySpinner);
         } else {
-            difficultyFieldLabel = new JLabel();
-            selectedHikingPanel.add(difficultyFieldLabel);
+            selectedHikingPanel.add(difficultyTextField);
         }
 
         descriptionLabel = new JLabel ("Description");
@@ -85,25 +85,53 @@ public class SelectedHikingPanel {
 
     public void handleSelectedHikingChange(Hiking hiking) {
         selectedHiking = hiking;
-        System.out.println("selectedhiking: " + selectedHiking);
         nameTextField.setText(selectedHiking.getName());
         lengthTextField.setText(Double.toString(selectedHiking.getLength()));
         locationTextField.setText(selectedHiking.getLocation());
         if (selectedHiking.getDifficulty() != null) {
             difficultySpinner.setValue(selectedHiking.getDifficulty());
-//        difficultyFieldLabel.setText(selectedHiking.getDifficulty().label);
+            difficultyTextField.setText(selectedHiking.getDifficulty().label);
+        } else {
+            difficultyTextField.setText("");
         }
         descriptionTextField.setText(selectedHiking.getDescription());
     }
 
     public Hiking getHikingData() {
-        // todo validation
-        selectedHiking.setName(nameTextField.getText());
-        selectedHiking.setLength(Double.parseDouble(lengthTextField.getText()));
-        selectedHiking.setLocation(locationTextField.getText());
+        boolean error = false;
+        if (!nameTextField.getText().equals("")) {
+            selectedHiking.setName(nameTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: Name can't be empty!", MessageType.ERROR);
+        }
+
+        try {
+            selectedHiking.setLength(Double.parseDouble(lengthTextField.getText()));
+        } catch (Exception ex) {
+            error = true;
+            showMsg("ERROR: Wrong length format!\nRequired form: n.n", MessageType.ERROR);
+        }
+
+        if (!locationTextField.getText().equals("")) {
+            selectedHiking.setLocation(locationTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: Location can't be empty!", MessageType.ERROR);
+        }
+
         selectedHiking.setDifficulty((Difficulty) difficultySpinner.getValue());
-//        selectedHiking.setDifficulty(Difficulty.getByLabel((String)difficultySpinner.getValue()));
-        selectedHiking.setDescription(descriptionTextField.getText());
+
+        if (!descriptionTextField.getText().equals("")) {
+            selectedHiking.setDescription(descriptionTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: Description can't be empty!", MessageType.ERROR);
+        }
+
+        if (error) {
+            return null;
+        }
         return selectedHiking;
     }
 }

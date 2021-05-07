@@ -33,9 +33,4 @@ public class HikingServiceImpl implements HikingService {
         return hikingRepository.get(id);
     }
 
-
-    @Override
-    public List<User> getUserCompletedList(String id) {
-        return hikingRepository.getUserCompletedList(id);
-    }
 }

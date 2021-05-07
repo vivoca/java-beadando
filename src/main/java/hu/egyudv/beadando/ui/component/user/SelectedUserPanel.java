@@ -1,11 +1,12 @@
 package hu.egyudv.beadando.ui.component.user;
 
 import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.ui.component.BasePanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SelectedUserPanel {
+public class SelectedUserPanel extends BasePanel {
 
     private JPanel selectedUserPanel;
     private JLabel firstNameLabel;
@@ -51,11 +52,12 @@ public class SelectedUserPanel {
         mobileTextField.setEditable(editable);
         selectedUserPanel.add(mobileTextField);
 
-        birthDateLabel = new JLabel ("Birth Date");
+        birthDateLabel = new JLabel ("Birth Date (yyyy.MM.dd)");
         selectedUserPanel.add(birthDateLabel);
 
         birthDateTextField = new JTextField();
         birthDateTextField.setEditable(editable);
+        birthDateTextField.setToolTipText("yyyy.MM.dd");
         selectedUserPanel.add(birthDateTextField);
 
     }
@@ -76,13 +78,38 @@ public class SelectedUserPanel {
         if (selectedUser == null) {
             selectedUser = new User();
         }
-        selectedUser.setFirstName(firstNameTextField.getText());
-        selectedUser.setLastName(lastNameTextField.getText());
-        selectedUser.setMobile(mobileTextField.getText());
+        boolean error = false;
+        if (!firstNameTextField.getText().equals("")) {
+            selectedUser.setFirstName(firstNameTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: First Name can't be empty!", MessageType.ERROR);
+        }
+
+        if (!lastNameTextField.getText().equals("")) {
+            selectedUser.setLastName(lastNameTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: Last Name can't be empty!", MessageType.ERROR);
+        }
+
+        if (!mobileTextField.getText().equals("")) {
+            selectedUser.setMobile(mobileTextField.getText());
+        } else {
+            error = true;
+            showMsg("ERROR: Mobile can't be empty!", MessageType.ERROR);
+        }
+
         try {
             selectedUser.setFormattedBirthDate(birthDateTextField.getText());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            error = true;
+            System.out.println("Wrong Date format");
+            showMsg("ERROR: Wrong Date format!\nRequired: yyyy.MM.dd", MessageType.ERROR);
+        }
+
+        if (error) {
+            return null;
         }
         return selectedUser;
     }
