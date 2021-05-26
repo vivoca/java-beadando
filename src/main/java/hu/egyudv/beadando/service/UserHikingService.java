@@ -1,14 +1,15 @@
 package hu.egyudv.beadando.service;
 
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.UserData;
+
 
 import java.util.List;
 
 public interface UserHikingService {
 
-    List<Hiking> getHikingListByUser(String userId);
-    List<User> getUserListByHiking(String hikingId);
-    void save(String userId, String hikingId);
-    void delete(String userId, String hikingId);
+    List<HikingData> getHikingListByUser(long userId);
+    List<UserData> getUserListByHiking(long hikingId);
+    void save(long userId, long hikingId);
+    void delete(long userId, long hikingId);
 }

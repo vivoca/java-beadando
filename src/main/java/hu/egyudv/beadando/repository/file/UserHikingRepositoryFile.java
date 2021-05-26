@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.repository;
+package hu.egyudv.beadando.repository.file;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
@@ -6,9 +6,12 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import hu.egyudv.beadando.exception.RepositoryException;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
-import hu.egyudv.beadando.repository.entity.UserHiking;
+import hu.egyudv.beadando.repository.HikingRepository;
+import hu.egyudv.beadando.repository.UserHikingRepository;
+import hu.egyudv.beadando.repository.UserRepository;
+import hu.egyudv.beadando.repository.file.entity.Hiking;
+import hu.egyudv.beadando.repository.file.entity.User;
+import hu.egyudv.beadando.repository.file.entity.UserHiking;
 
 import java.io.FileWriter;
 import java.io.IOException;

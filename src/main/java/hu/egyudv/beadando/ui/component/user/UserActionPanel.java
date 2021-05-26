@@ -1,8 +1,7 @@
 package hu.egyudv.beadando.ui.component.user;
 
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.repository.UserRepository;
-import hu.egyudv.beadando.repository.UserRepositoryFile;
-import hu.egyudv.beadando.repository.entity.User;
 import hu.egyudv.beadando.service.UserService;
 import hu.egyudv.beadando.service.UserServiceImpl;
 import hu.egyudv.beadando.ui.component.BasePanel;
@@ -18,6 +17,8 @@ public class UserActionPanel extends BasePanel {
     private UserViewPanel userViewPanel;
     private JPanel userActionPanel;
 
+    private final UserService userService = new UserServiceImpl();
+
     public UserActionPanel(UserViewPanel userViewPanel) {
         this.userViewPanel = userViewPanel;
         userActionPanel = new JPanel();
@@ -32,12 +33,9 @@ public class UserActionPanel extends BasePanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                User user = userViewPanel.getSelectedUser();
+                UserData user = userViewPanel.getSelectedUser();
                 if (user != null) {
                 System.out.println("save: " + user);
-
-                UserRepository userRepository = new UserRepositoryFile();
-                UserService userService = new UserServiceImpl(userRepository);
 
                 userService.save(user);
                 userViewPanel.refreshUserList();
@@ -56,12 +54,9 @@ public class UserActionPanel extends BasePanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                User user = userViewPanel.getSelectedUser();
+                UserData user = userViewPanel.getSelectedUser();
                 if (user != null) {
                     System.out.println("delete: " + user);
-
-                    UserRepository userRepository = new UserRepositoryFile();
-                    UserService userService = new UserServiceImpl(userRepository);
 
                     userService.delete(user.getId());
                     userViewPanel.setSelectedUser(null);

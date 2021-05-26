@@ -1,6 +1,7 @@
-package hu.egyudv.beadando.repository.entity;
+package hu.egyudv.beadando.repository.file.entity;
 
 import com.opencsv.bean.CsvBindByName;
+import hu.egyudv.beadando.model.Difficulty;
 
 public class Hiking {
 

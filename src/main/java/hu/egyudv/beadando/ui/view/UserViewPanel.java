@@ -1,9 +1,7 @@
 package hu.egyudv.beadando.ui.view;
 
-import hu.egyudv.beadando.repository.UserRepository;
-import hu.egyudv.beadando.repository.UserRepositoryFile;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.service.UserHikingService;
 import hu.egyudv.beadando.service.UserHikingServiceImpl;
 import hu.egyudv.beadando.service.UserService;
@@ -28,9 +26,11 @@ public class UserViewPanel {
     private JTable userTable;
     private JTable hikingTable;
 
-    private User selectedUser;
-    private List<User> userList  = new ArrayList<>();
+    private UserData selectedUser;
+    private List<UserData> userList  = new ArrayList<>();
     private SelectedUserPanel selectedUserPanel;
+
+    private final UserService userService = new UserServiceImpl();
 
     public UserViewPanel() {
         Insets defaultInsets = new Insets(5,25,5,25);
@@ -134,27 +134,25 @@ public class UserViewPanel {
     }
 
     public void refreshUserList() {
-        UserRepository userRepository = new UserRepositoryFile();
-        UserService userService = new UserServiceImpl(userRepository);
         userList = userService.all();
         userTable.setModel(new UserTableModel(userList));
     }
 
-    public User getSelectedUser() {
+    public UserData getSelectedUser() {
         selectedUser = selectedUserPanel.getUserData();
         return selectedUser;
     }
 
-    public void setSelectedUser(User user) {
+    public void setSelectedUser(UserData user) {
         userTable.clearSelection();
-        selectedUser = Objects.requireNonNullElseGet(user, User::new);
+        selectedUser = Objects.requireNonNullElseGet(user, UserData::new);
         selectedUserPanel.handleSelectedUserChange(selectedUser);
     }
 
     public void refreshHikingTable() {
         if (selectedUser != null) {
             UserHikingService userHikingService = new UserHikingServiceImpl();
-            List<Hiking> hikingList = userHikingService.getHikingListByUser(selectedUser.getId());
+            List<HikingData> hikingList = userHikingService.getHikingListByUser(selectedUser.getId());
             hikingTable.setModel(new HikingTableModel(hikingList));
         }
     }

@@ -1,8 +1,6 @@
 package hu.egyudv.beadando.ui.component.hiking;
 
-import hu.egyudv.beadando.repository.HikingRepository;
-import hu.egyudv.beadando.repository.HikingRepositoryFile;
-import hu.egyudv.beadando.repository.entity.Hiking;
+import hu.egyudv.beadando.model.HikingData;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
 import hu.egyudv.beadando.ui.component.BasePanel;
@@ -31,7 +29,7 @@ public class HikingActionPanel extends BasePanel {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hiking hiking = hikingViewPanel.getSelectedHiking();
+                HikingData hiking = hikingViewPanel.getSelectedHiking();
                 if (hiking != null) {
                     System.out.println("save: " + hiking);
 
@@ -52,7 +50,7 @@ public class HikingActionPanel extends BasePanel {
         deleteBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Hiking hiking = hikingViewPanel.getSelectedHiking();
+                HikingData hiking = hikingViewPanel.getSelectedHiking();
                 if (hiking != null) {
                     System.out.println("delete: " + hiking);
 

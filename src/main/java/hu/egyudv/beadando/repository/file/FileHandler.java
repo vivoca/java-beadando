@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.repository;
+package hu.egyudv.beadando.repository.file;
 
 import java.io.*;
 

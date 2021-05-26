@@ -22,7 +22,7 @@ public class MainGUI implements ItemListener {
         JLabel menuChooseLabel = new JLabel();
         menuChooseLabel.setText("Choose a menu: ");
         comboBoxPane.add(menuChooseLabel);
-        String comboBoxItems[] = {ADMINISTRATOR_MENU, USER_MENU, HIKING_MENU, WEATHER_FORECAST_MENU};
+        String comboBoxItems[] = {ADMINISTRATOR_MENU, USER_MENU, HIKING_MENU, STATISTICS_MENU, WEATHER_FORECAST_MENU};
         JComboBox cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
         cb.addItemListener(this);
@@ -36,7 +36,7 @@ public class MainGUI implements ItemListener {
         cards.add(new AdministratorViewPanel().getAdminPanel(), ADMINISTRATOR_MENU);
         cards.add(new UserViewPanel().getUserPanel(), USER_MENU);
         cards.add(new HikingViewPanel().getHikingPanel(), HIKING_MENU);
-//        cards.add(card3, STATISTICS_MENU);
+        cards.add(card3, STATISTICS_MENU);
         cards.add(new WeatherViewPanel().getWeatherPanel(), WEATHER_FORECAST_MENU);
 
         pane.add(comboBoxPane, BorderLayout.PAGE_START);

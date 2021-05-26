@@ -1,9 +1,7 @@
 package hu.egyudv.beadando.ui.view;
 
-import hu.egyudv.beadando.repository.HikingRepository;
-import hu.egyudv.beadando.repository.HikingRepositoryFile;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
 import hu.egyudv.beadando.service.UserHikingService;
@@ -28,8 +26,8 @@ public class HikingViewPanel {
     private JTable hikingTable;
     private JTable userTable;
 
-    private Hiking selectedHiking;
-    private List<Hiking> hikingList = new ArrayList<>();
+    private HikingData selectedHiking;
+    private List<HikingData> hikingList = new ArrayList<>();
     private SelectedHikingPanel selectedHikingPanel;
 
 
@@ -134,21 +132,21 @@ public class HikingViewPanel {
         hikingTable.setModel(new HikingTableModel(hikingList));
     }
 
-    public Hiking getSelectedHiking() {
+    public HikingData getSelectedHiking() {
         selectedHiking = selectedHikingPanel.getHikingData();
         return selectedHiking;
     }
 
-    public void setSelectedHiking(Hiking hiking) {
+    public void setSelectedHiking(HikingData hiking) {
         hikingTable.clearSelection();
-        selectedHiking = Objects.requireNonNullElseGet(hiking, Hiking::new);
+        selectedHiking = Objects.requireNonNullElseGet(hiking, HikingData::new);
         selectedHikingPanel.handleSelectedHikingChange(selectedHiking);
     }
 
     public void refreshUserTable() {
         if (selectedHiking != null) {
             UserHikingService userHikingService = new UserHikingServiceImpl();
-            List<User> userList = userHikingService.getUserListByHiking(selectedHiking.getId());
+            List<UserData> userList = userHikingService.getUserListByHiking(selectedHiking.getId());
             userTable.setModel(new UserTableModel(userList));
         }
     }

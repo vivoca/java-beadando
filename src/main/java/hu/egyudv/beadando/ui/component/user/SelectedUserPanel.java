@@ -1,6 +1,6 @@
 package hu.egyudv.beadando.ui.component.user;
 
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.ui.component.BasePanel;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class SelectedUserPanel extends BasePanel {
     private JTextField mobileTextField;
     private JTextField birthDateTextField;
 
-    private User selectedUser;
+    private UserData selectedUser;
 
     public SelectedUserPanel(boolean editable) {
         selectedUserPanel = new JPanel();
@@ -28,7 +28,7 @@ public class SelectedUserPanel extends BasePanel {
         selectedUserPanel.setLayout(gridLayout);
 
         if (selectedUser == null) {
-            selectedUser = new User();
+            selectedUser = new UserData();
         }
 
         firstNameLabel = new JLabel ("First Name");
@@ -66,7 +66,7 @@ public class SelectedUserPanel extends BasePanel {
         return selectedUserPanel;
     }
 
-    public void handleSelectedUserChange(User user) {
+    public void handleSelectedUserChange(UserData user) {
         selectedUser = user;
         firstNameTextField.setText(selectedUser.getFirstName());
         lastNameTextField.setText(selectedUser.getLastName());
@@ -74,9 +74,9 @@ public class SelectedUserPanel extends BasePanel {
         birthDateTextField.setText(selectedUser.getFormattedBirthDate());
     }
 
-    public User getUserData() {
+    public UserData getUserData() {
         if (selectedUser == null) {
-            selectedUser = new User();
+            selectedUser = new UserData();
         }
         boolean error = false;
         if (!firstNameTextField.getText().equals("")) {

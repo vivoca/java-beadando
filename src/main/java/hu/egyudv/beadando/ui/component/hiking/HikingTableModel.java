@@ -1,6 +1,6 @@
 package hu.egyudv.beadando.ui.component.hiking;
 
-import hu.egyudv.beadando.repository.entity.Hiking;
+import hu.egyudv.beadando.model.HikingData;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class HikingTableModel extends AbstractTableModel {
 
-    private List<Hiking> hikingList = new ArrayList();
+    private List<HikingData> hikingList = new ArrayList();
     private String[] columnNames = {
             "Name",
             "Length(km)",
@@ -17,7 +17,7 @@ public class HikingTableModel extends AbstractTableModel {
             "Description"
     };
 
-    public HikingTableModel(List<Hiking> list){
+    public HikingTableModel(List<HikingData> list){
         this.hikingList = list;
     }
 
@@ -38,7 +38,7 @@ public class HikingTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Hiking hiking = hikingList.get(rowIndex);
+        HikingData hiking = hikingList.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return hiking.getName();

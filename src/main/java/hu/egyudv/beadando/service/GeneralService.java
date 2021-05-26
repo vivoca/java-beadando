@@ -7,7 +7,7 @@ public interface GeneralService<T> {
     List<T> all();
     // update | new
     T save(T object);
-    void delete(String id);
-    T get(String id);
+    void delete(long id);
+    T get(long id);
 
 }

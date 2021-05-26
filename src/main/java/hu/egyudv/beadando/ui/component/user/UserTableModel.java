@@ -1,6 +1,6 @@
 package hu.egyudv.beadando.ui.component.user;
 
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.UserData;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserTableModel extends AbstractTableModel {
 
-    private List<User> userList = new ArrayList();
+    private List<UserData> userList = new ArrayList();
     private String[] columnNames = {
             "First Name",
             "Last Name",
@@ -16,7 +16,7 @@ public class UserTableModel extends AbstractTableModel {
             "Mobile"
     };
 
-    public UserTableModel(List<User> list){
+    public UserTableModel(List<UserData> list){
         this.userList = list;
     }
 
@@ -37,7 +37,7 @@ public class UserTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        User user = userList.get(rowIndex);
+        UserData user = userList.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return user.getFirstName();

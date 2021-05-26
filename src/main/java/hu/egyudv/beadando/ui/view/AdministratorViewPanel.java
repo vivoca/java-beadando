@@ -1,11 +1,7 @@
 package hu.egyudv.beadando.ui.view;
 
-import hu.egyudv.beadando.repository.HikingRepository;
-import hu.egyudv.beadando.repository.HikingRepositoryFile;
-import hu.egyudv.beadando.repository.UserRepository;
-import hu.egyudv.beadando.repository.UserRepositoryFile;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.service.*;
 import hu.egyudv.beadando.ui.component.AdminActionPanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
@@ -29,12 +25,16 @@ public class AdministratorViewPanel {
     private JTable hikingTable;
     private JButton refreshBtn;
 
-    private User selectedUser;
+    private UserData selectedUser;
     private SelectedUserPanel selectedUserPanel;
-    private List<User> userList = new ArrayList<>();
-    private Hiking selectedHiking;
+    private List<UserData> userList = new ArrayList<>();
+    private HikingData selectedHiking;
     private SelectedHikingPanel selectedHikingPanel;
-    private List<Hiking> hikingList = new ArrayList<>();
+    private List<HikingData> hikingList = new ArrayList<>();
+
+    private final UserService userService = new UserServiceImpl();
+    private final HikingService hikingService = new HikingServiceImpl();
+    private final UserHikingService userHikingService = new UserHikingServiceImpl();
 
     public AdministratorViewPanel() {
         Insets defaultInsets = new Insets(5, 25, 5, 25);
@@ -106,23 +106,20 @@ public class AdministratorViewPanel {
         return adminPanel;
     }
 
-    public void addUserHiking(String userId, String hikingId) {
-        UserHikingService userHikingService = new UserHikingServiceImpl();
+    public void addUserHiking(long userId, long hikingId) {
         userHikingService.save(userId, hikingId);
     }
 
-    public void removeUserHiking(String userId, String hikingId) {
-        UserHikingService userHikingService = new UserHikingServiceImpl();
+    public void removeUserHiking(long userId, long hikingId) {
         userHikingService.delete(userId, hikingId);
     }
 
     public void refreshTableData() {
-        UserRepository userRepository = new UserRepositoryFile();
-        UserService userService = new UserServiceImpl(userRepository);
+
         userList = userService.all();
         userTable.setModel(new UserTableModel(userList));
 
-        HikingService hikingService = new HikingServiceImpl();
+
         hikingList = hikingService.all();
         hikingTable.setModel(new HikingTableModel(hikingList));
     }
@@ -130,17 +127,17 @@ public class AdministratorViewPanel {
     public void clear() {
         userTable.clearSelection();
         hikingTable.clearSelection();
-        selectedUser = new User();
+        selectedUser = new UserData();
         selectedUserPanel.handleSelectedUserChange(selectedUser);
-        selectedHiking = new Hiking();
+        selectedHiking = new HikingData();
         selectedHikingPanel.handleSelectedHikingChange(selectedHiking);
     }
 
-    public User getSelectedUser() {
+    public UserData getSelectedUser() {
         return selectedUser;
     }
 
-    public Hiking getSelectedHiking() {
+    public HikingData getSelectedHiking() {
         return selectedHiking;
     }
 

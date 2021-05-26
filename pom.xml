@@ -26,12 +26,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.3</version>
@@ -46,7 +40,38 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.9</version>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-core &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-core</artifactId>-->
+<!--            <version>5.4.21.Final</version>-->
+<!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.19.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.gwenn</groupId>
+            <artifactId>sqlite-dialect</artifactId>
+            <version>master</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

@@ -1,14 +1,13 @@
 package hu.egyudv.beadando.service;
 
 
+import hu.egyudv.beadando.model.HikingData;
 import hu.egyudv.beadando.model.WeatherData;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.repository.db.entity.Hiking;
 
-import java.util.List;
-
-public interface HikingService extends GeneralService<Hiking> {
+public interface HikingService extends GeneralService<HikingData> {
 
     WeatherData getRelatedWeatherData(String location);
+    HikingData convertToHikingData(Hiking hiking);
 
 }

@@ -1,6 +1,8 @@
 package hu.egyudv.beadando.model;
 
-public class WeatherData {
+import java.io.Serializable;
+
+public class WeatherData implements Serializable {
 
     private String location;
     private Double temp;

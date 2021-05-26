@@ -1,7 +1,7 @@
 package hu.egyudv.beadando.ui.component;
 
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.ui.view.AdministratorViewPanel;
 
 import javax.swing.*;
@@ -28,8 +28,8 @@ public class AdminActionPanel extends BasePanel{
         addBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user = adminViewPanel.getSelectedUser();
-                Hiking hiking = adminViewPanel.getSelectedHiking();
+                UserData user = adminViewPanel.getSelectedUser();
+                HikingData hiking = adminViewPanel.getSelectedHiking();
                 if (user != null && hiking != null) {
                     adminViewPanel.addUserHiking(user.getId(), hiking.getId());
                     showMsg("Add Done\nUser: " + user.getFirstName() + " " + user.getLastName() + "\nHiking: " + hiking.getName(), MessageType.INFO);
@@ -42,8 +42,8 @@ public class AdminActionPanel extends BasePanel{
         removeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user = adminViewPanel.getSelectedUser();
-                Hiking hiking = adminViewPanel.getSelectedHiking();
+                UserData user = adminViewPanel.getSelectedUser();
+                HikingData hiking = adminViewPanel.getSelectedHiking();
                 if (user != null && hiking != null) {
                     adminViewPanel.removeUserHiking(user.getId(), hiking.getId());
                     showMsg("Remove Done\nUser: " + user.getFirstName() + " " + user.getLastName() + "\nHiking: " + hiking.getName(), MessageType.INFO);

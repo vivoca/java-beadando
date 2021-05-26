@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.service;
+package hu.egyudv.beadando.rest.service;
 
 import hu.egyudv.beadando.model.WeatherData;
 

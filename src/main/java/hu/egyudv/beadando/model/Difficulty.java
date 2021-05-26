@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.repository.entity;
+package hu.egyudv.beadando.model;
 
 public enum Difficulty {
     LOW("LOW"),

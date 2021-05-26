@@ -1,7 +1,7 @@
 package hu.egyudv.beadando.ui.component.hiking;
 
-import hu.egyudv.beadando.repository.entity.Difficulty;
-import hu.egyudv.beadando.repository.entity.Hiking;
+import hu.egyudv.beadando.model.HikingData;
+import hu.egyudv.beadando.model.Difficulty;
 import hu.egyudv.beadando.ui.component.BasePanel;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class SelectedHikingPanel extends BasePanel {
     private JSpinner difficultySpinner;
     private JTextField descriptionTextField;
 
-    private Hiking selectedHiking;
+    private HikingData selectedHiking;
 
     public SelectedHikingPanel(boolean editable) {
         selectedHikingPanel = new JPanel();
@@ -32,7 +32,7 @@ public class SelectedHikingPanel extends BasePanel {
         selectedHikingPanel.setLayout(gridLayout);
 
         if (selectedHiking == null) {
-            selectedHiking = new Hiking();
+            selectedHiking = new HikingData();
         }
 
         nameLabel = new JLabel ("Name");
@@ -83,7 +83,7 @@ public class SelectedHikingPanel extends BasePanel {
         return selectedHikingPanel;
     }
 
-    public void handleSelectedHikingChange(Hiking hiking) {
+    public void handleSelectedHikingChange(HikingData hiking) {
         selectedHiking = hiking;
         nameTextField.setText(selectedHiking.getName());
         lengthTextField.setText(Double.toString(selectedHiking.getLength()));
@@ -97,7 +97,7 @@ public class SelectedHikingPanel extends BasePanel {
         descriptionTextField.setText(selectedHiking.getDescription());
     }
 
-    public Hiking getHikingData() {
+    public HikingData getHikingData() {
         boolean error = false;
         if (!nameTextField.getText().equals("")) {
             selectedHiking.setName(nameTextField.getText());

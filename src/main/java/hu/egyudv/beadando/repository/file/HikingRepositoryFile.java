@@ -1,36 +1,37 @@
-package hu.egyudv.beadando.repository;
+package hu.egyudv.beadando.repository.file;
+
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import hu.egyudv.beadando.exception.EntityNotFoundException;
-import hu.egyudv.beadando.repository.entity.Hiking;
-import hu.egyudv.beadando.repository.entity.User;
+import hu.egyudv.beadando.repository.HikingRepository;
+import hu.egyudv.beadando.repository.UserHikingRepository;
+import hu.egyudv.beadando.repository.file.entity.Hiking;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class UserRepositoryFile implements UserRepository {
+import hu.egyudv.beadando.exception.EntityNotFoundException;
+import hu.egyudv.beadando.repository.file.entity.User;
 
-    private List<User> objectList = new ArrayList<>();
-    private static final String FILE_PATH = "dataFiles/users.csv";
+
+public class HikingRepositoryFile implements HikingRepository {
+
+    private List<Hiking> objectList = new ArrayList<>();
+    private static final String FILE_PATH = "dataFiles/hikings.csv";
     private FileHandler fileHandler;
 
     private final UserHikingRepository userHikingRepository = new UserHikingRepositoryFile();
 
-
     @Override
-    public List<User> all() {
+    public List<Hiking> all() {
         try {
-            List<User> resultList = convertCsvToList();
+            List<Hiking> resultList = convertCsvToList();
             objectList.addAll(resultList);
         } catch (Exception ex) {
             throw new RuntimeException("error in read file data");
@@ -39,23 +40,23 @@ public class UserRepositoryFile implements UserRepository {
     }
 
     @Override
-    public User save(User object) {
-        User found = null;
+    public Hiking save(Hiking object) {
         objectList = all();
+        Hiking found = null;
         if (object.getId() != null && object.getId().length() > 0) {
-            for (User item : objectList) {
+            for (Hiking item : objectList) {
                 if (item.getId().equals(object.getId())) {
-                    item.setFirstName(object.getFirstName());
-                    item.setLastName(object.getLastName());
-                    item.setBirthDate(object.getBirthDate());
-                    item.setMobile(object.getMobile());
-                    item.setCompletedHikingList(object.getCompletedHikingList());
+                    item.setName(object.getName());
+                    item.setLocation(object.getLocation());
+                    item.setLength(object.getLength());
+                    item.setDescription(object.getDescription());
+                    item.setDifficulty(object.getDifficulty());
                     found = item;
                     break;
                 }
             }
             if (found == null) {
-                throw new EntityNotFoundException("No such User data " + object.getId());
+                throw new EntityNotFoundException("No such hiking data " + object.getId());
             }
         } else { // insert
             object.setId(UUID.randomUUID().toString());
@@ -84,30 +85,37 @@ public class UserRepositoryFile implements UserRepository {
     }
 
     @Override
-    public User get(String id) {
+    public Hiking get(String id) {
         objectList = all();
-        User result = objectList.stream()
-                .filter(f -> f.getId().equals(id))
+        Hiking result = objectList.stream()
+                .filter( f -> f.getId().equals(id))
                 .findFirst()
                 .get();
         if (result == null) {
-            throw new EntityNotFoundException("No such User " + id);
+            throw new EntityNotFoundException("No such hiking " + id);
         }
         return result;
     }
 
-    private List<User> convertCsvToList() throws IOException {
+    @Override
+    public List<User> getUserCompletedList(String id) {
+        // todo
+        return new ArrayList<>();
+    }
+
+    private List<Hiking> convertCsvToList() throws IOException {
         String fileString = getCsvString();
-        List<User> resultList = new CsvToBeanBuilder(new StringReader(fileString))
-                .withType(User.class)
+        List<Hiking> resultList = new CsvToBeanBuilder(new StringReader(fileString))
+                .withType(Hiking.class)
                 .build()
                 .parse();
         return resultList;
     }
 
     private void updateCsv() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+
         Writer writer = new FileWriter(FILE_PATH);
-        StatefulBeanToCsv<User> beanToCsv = new StatefulBeanToCsvBuilder<User>(writer).build();
+        StatefulBeanToCsv<Hiking> beanToCsv = new StatefulBeanToCsvBuilder<Hiking>(writer).build();
         beanToCsv.write(objectList);
         writer.close();
     }

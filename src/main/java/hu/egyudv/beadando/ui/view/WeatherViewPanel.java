@@ -1,17 +1,12 @@
 package hu.egyudv.beadando.ui.view;
 
+import hu.egyudv.beadando.model.HikingData;
 import hu.egyudv.beadando.model.WeatherData;
-import hu.egyudv.beadando.repository.UserRepository;
-import hu.egyudv.beadando.repository.UserRepositoryFile;
-import hu.egyudv.beadando.repository.entity.Hiking;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
-import hu.egyudv.beadando.service.UserService;
-import hu.egyudv.beadando.service.UserServiceImpl;
 import hu.egyudv.beadando.ui.component.SelectedWeatherPanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
 import hu.egyudv.beadando.ui.component.hiking.SelectedHikingPanel;
-import hu.egyudv.beadando.ui.component.user.UserTableModel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -27,9 +22,9 @@ public class WeatherViewPanel {
     private JTable hikingTable;
     private JButton refreshBtn;
 
-    private Hiking selectedHiking;
+    private HikingData selectedHiking;
     private SelectedHikingPanel selectedHikingPanel;
-    private List<Hiking> hikingList = new ArrayList<>();
+    private List<HikingData> hikingList = new ArrayList<>();
     private SelectedWeatherPanel selectedWeatherPanel;
 
     public WeatherViewPanel() {

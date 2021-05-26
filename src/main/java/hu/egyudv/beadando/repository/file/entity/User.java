@@ -1,10 +1,10 @@
-package hu.egyudv.beadando.repository.entity;
+package hu.egyudv.beadando.repository.file.entity;
 
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
 import hu.egyudv.beadando.repository.HikingRepository;
-import hu.egyudv.beadando.repository.HikingRepositoryFile;
+import hu.egyudv.beadando.repository.file.HikingRepositoryFile;
 
 import java.text.DateFormat;
 import java.text.ParseException;
