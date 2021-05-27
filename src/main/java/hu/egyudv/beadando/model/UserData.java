@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.LongAdder;
 
 public class UserData implements Serializable {
 
@@ -14,11 +15,11 @@ public class UserData implements Serializable {
     private Date birthDate;
     private String mobile;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

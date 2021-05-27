@@ -4,6 +4,7 @@ import hu.egyudv.beadando.model.HikingData;
 import hu.egyudv.beadando.model.UserData;
 import hu.egyudv.beadando.service.*;
 import hu.egyudv.beadando.ui.component.AdminActionPanel;
+import hu.egyudv.beadando.ui.component.SignaturePanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
 import hu.egyudv.beadando.ui.component.hiking.SelectedHikingPanel;
 import hu.egyudv.beadando.ui.component.user.SelectedUserPanel;
@@ -98,6 +99,15 @@ public class AdministratorViewPanel {
         layoutConstraints.gridy = 3;
         layoutConstraints.insets = defaultInsets;
         adminPanel.add(actionPanel, layoutConstraints);
+
+        JPanel signPanel = createSignaturePanel();
+        layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
+        layoutConstraints.weightx = 0;
+        layoutConstraints.gridwidth = 3;
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 4;
+        layoutConstraints.insets = defaultInsets;
+        adminPanel.add(signPanel, layoutConstraints);
 
         refreshTableData();
     }
@@ -214,6 +224,10 @@ public class AdministratorViewPanel {
 
     private JPanel createActionPanel() {
         return new AdminActionPanel(this).getAdminActionPanel();
+    }
+
+    private JPanel createSignaturePanel() {
+        return new SignaturePanel().getSignaturePanel();
     }
 
 }

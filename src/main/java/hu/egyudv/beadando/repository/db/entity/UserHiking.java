@@ -4,7 +4,7 @@ package hu.egyudv.beadando.repository.db.entity;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "user_hiking")
 public class UserHiking {
 
     @Id

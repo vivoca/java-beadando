@@ -5,6 +5,7 @@ import hu.egyudv.beadando.model.WeatherData;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
 import hu.egyudv.beadando.ui.component.SelectedWeatherPanel;
+import hu.egyudv.beadando.ui.component.SignaturePanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
 import hu.egyudv.beadando.ui.component.hiking.SelectedHikingPanel;
 
@@ -70,6 +71,13 @@ public class WeatherViewPanel {
         layoutConstraints.gridy = 2;
         layoutConstraints.insets = defaultInsets;
         weatherPanel.add(currentWeatherPanel, layoutConstraints);
+
+        JPanel signPanel = createSignaturePanel();
+        layoutConstraints.weightx = 0;
+        layoutConstraints.gridwidth = 2;
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 3;
+        weatherPanel.add(signPanel, layoutConstraints);
 
         refreshHikingList();
 
@@ -140,4 +148,9 @@ public class WeatherViewPanel {
         hikingList = hikingService.all();
         hikingTable.setModel(new HikingTableModel(hikingList));
     }
+
+    private JPanel createSignaturePanel() {
+        return new SignaturePanel().getSignaturePanel();
+    }
+
 }

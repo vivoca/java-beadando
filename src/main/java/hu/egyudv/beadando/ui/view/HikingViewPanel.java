@@ -6,6 +6,7 @@ import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
 import hu.egyudv.beadando.service.UserHikingService;
 import hu.egyudv.beadando.service.UserHikingServiceImpl;
+import hu.egyudv.beadando.ui.component.SignaturePanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingActionPanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
 import hu.egyudv.beadando.ui.component.hiking.SelectedHikingPanel;
@@ -118,6 +119,11 @@ public class HikingViewPanel {
         layoutConstraints.gridy = 4;
         hikingPanel.add(userScrollPane, layoutConstraints);
 
+        JPanel signPanel = createSignaturePanel();
+        layoutConstraints.gridx = 0;
+        layoutConstraints.gridy = 5;
+        hikingPanel.add(signPanel, layoutConstraints);
+
         refreshHikingList();
 
     }
@@ -149,6 +155,10 @@ public class HikingViewPanel {
             List<UserData> userList = userHikingService.getUserListByHiking(selectedHiking.getId());
             userTable.setModel(new UserTableModel(userList));
         }
+    }
+
+    private JPanel createSignaturePanel() {
+        return new SignaturePanel().getSignaturePanel();
     }
 
 

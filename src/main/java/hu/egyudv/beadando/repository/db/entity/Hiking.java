@@ -3,7 +3,6 @@ package hu.egyudv.beadando.repository.db.entity;
 import hu.egyudv.beadando.model.Difficulty;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table
@@ -22,7 +21,7 @@ public class Hiking {
     @Column(name = "length")
     private Double length;
 
-    @Column(name = "birth_date")
+    @Column(name = "difficulty")
     private String difficulty;
 
     @Column(name = "description")
