@@ -8,11 +8,7 @@ java-3-feladatok
     - User completed MEDIUM hiking
 
 ## TODO
-    - hikingRepository implement
-    - userHikingRepository implement
     - statistics querys create
     - statistics view -> four btn
     - statistics view -> executed query String
     - statistics view -> userTable to show data
-    - DOCUMENTATION!!!
-    - start sql 
