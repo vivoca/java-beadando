@@ -1,9 +1,6 @@
 package hu.egyudv.beadando.ui;
 
-import hu.egyudv.beadando.ui.view.AdministratorViewPanel;
-import hu.egyudv.beadando.ui.view.HikingViewPanel;
-import hu.egyudv.beadando.ui.view.UserViewPanel;
-import hu.egyudv.beadando.ui.view.WeatherViewPanel;
+import hu.egyudv.beadando.ui.view.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -36,7 +33,7 @@ public class MainGUI implements ItemListener {
         cards.add(new AdministratorViewPanel().getAdminPanel(), ADMINISTRATOR_MENU);
         cards.add(new UserViewPanel().getUserPanel(), USER_MENU);
         cards.add(new HikingViewPanel().getHikingPanel(), HIKING_MENU);
-        cards.add(card3, STATISTICS_MENU);
+        cards.add(new StatisticsViewPanel().getStatisticsPanel(), STATISTICS_MENU);
         cards.add(new WeatherViewPanel().getWeatherPanel(), WEATHER_FORECAST_MENU);
 
         pane.add(comboBoxPane, BorderLayout.PAGE_START);

@@ -19,4 +19,7 @@ public interface UserHikingRepository {
     void delete(long userId, long hikingId);
     List<UserHiking> getByUser(long userId);
     List<UserHiking> getByHiking(long hikingId);
+
+    List<User> statMoreThan5Hiking();
+    List<User> statCompletedMediumHike();
 }

@@ -23,8 +23,8 @@ CREATE TABLE public.user_hiking (
                                     id serial NOT NULL,
                                     user_id int4 NULL,
                                     hiking_id int4 NULL,
-                                    CONSTRAINT user_hiking_fk FOREIGN KEY (id) REFERENCES public.hiking(id),
-                                    CONSTRAINT user_hiking_fk_1 FOREIGN KEY (id) REFERENCES public.user_info(id)
+                                    CONSTRAINT user_hiking_fk FOREIGN KEY (hiking_id) REFERENCES public.hiking(id),
+                                    CONSTRAINT user_hiking_fk_1 FOREIGN KEY (user_id) REFERENCES public.user_info(id)
 );
 
 

@@ -1,4 +1,4 @@
-package hu.egyudv.beadando.ui.component;
+package hu.egyudv.beadando.ui.component.weather;
 
 import hu.egyudv.beadando.model.WeatherData;
 

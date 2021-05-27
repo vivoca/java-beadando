@@ -77,4 +77,32 @@ public class UserRepositoryDb implements UserRepository {
             return resultList.get(0);
         }
     }
+
+
+    @Override
+    public List<User> statAgeBetween15And20() {
+        SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Query q = session.createQuery("select _user from User _user where _user.birthDate >= '2001.01.01' and _user.birthDate <= '2006.12.31'");
+        List<User> resultList = q.list();
+
+        session.close();
+
+        return resultList;
+    }
+
+    @Override
+    public List<User> statBornInJuly() {
+        SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Query q = session.createQuery("select _user from User _user where to_char(_user.birthDate, 'MM') = '07'");
+        List<User> resultList = q.list();
+
+        session.close();
+
+        return resultList;
+    }
+
 }

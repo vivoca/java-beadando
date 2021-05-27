@@ -12,4 +12,8 @@ public interface UserRepository {
     User save(User object);
     void delete(long id);
     User get(long id);
+
+    List<User> statAgeBetween15And20();
+    List<User> statBornInJuly();
+
 }

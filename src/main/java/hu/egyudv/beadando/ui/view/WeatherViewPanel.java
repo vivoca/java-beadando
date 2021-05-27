@@ -4,7 +4,7 @@ import hu.egyudv.beadando.model.HikingData;
 import hu.egyudv.beadando.model.WeatherData;
 import hu.egyudv.beadando.service.HikingService;
 import hu.egyudv.beadando.service.HikingServiceImpl;
-import hu.egyudv.beadando.ui.component.SelectedWeatherPanel;
+import hu.egyudv.beadando.ui.component.weather.SelectedWeatherPanel;
 import hu.egyudv.beadando.ui.component.SignaturePanel;
 import hu.egyudv.beadando.ui.component.hiking.HikingTableModel;
 import hu.egyudv.beadando.ui.component.hiking.SelectedHikingPanel;

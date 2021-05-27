@@ -1,8 +1,6 @@
 package hu.egyudv.beadando.repository.db;
 
-import hu.egyudv.beadando.repository.HikingRepository;
 import hu.egyudv.beadando.repository.UserHikingRepository;
-import hu.egyudv.beadando.repository.UserRepository;
 import hu.egyudv.beadando.repository.db.entity.Hiking;
 import hu.egyudv.beadando.repository.db.entity.User;
 import hu.egyudv.beadando.repository.db.entity.UserHiking;
@@ -16,17 +14,13 @@ import java.util.List;
 
 public class UserHikingRepositoryDb implements UserHikingRepository {
 
-//    private final HikingRepository hikingRepository = new HikingRepositoryDb();
-//    private final UserRepository userRepository = new UserRepositoryDb();
-
     @Override
     public List<Hiking> getHikingListByUser(long userId) {
         List<Hiking> resultList = new ArrayList<>();
 
         List<UserHiking> userHikingList = getByUser(userId);
         for (UserHiking item : userHikingList) {
-            Hiking hiking = hikingRepository.get(item.getHikingId());
-            resultList.add(hiking);
+            resultList.add(item.getHiking());
         }
 
         return resultList;
@@ -38,8 +32,7 @@ public class UserHikingRepositoryDb implements UserHikingRepository {
 
         List<UserHiking> userHikingList = getByHiking(hikingId);
         for (UserHiking item : userHikingList) {
-            User user = userRepository.get(item.getUserId());
-            resultList.add(user);
+            resultList.add(item.getUser());
         }
 
         return resultList;
@@ -77,9 +70,11 @@ public class UserHikingRepositoryDb implements UserHikingRepository {
     public void save(long userId, long hikingId) {
         UserHiking userHiking = get(userId, hikingId);
         if (userHiking == null) {
+            User user = userRepository.get(userId);
+            Hiking hiking = hikingRepository.get(hikingId);
             userHiking = new UserHiking();
-            userHiking.setUserId(userId);
-            userHiking.setHikingId(hikingId);
+            userHiking.setUser(user);
+            userHiking.setHiking(hiking);
             SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
             Session session = sessionFactory.openSession();
             session.beginTransaction();
@@ -106,7 +101,7 @@ public class UserHikingRepositoryDb implements UserHikingRepository {
         SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
 
-        Query q = session.createQuery("select _uh from UserHiking _uh where userId = :userId and hikingId = :hikingId ");
+        Query q = session.createQuery("select _uh from UserHiking _uh where user.id = :userId and hiking.id = :hikingId ");
         q.setParameter("userId",userId);
         q.setParameter("hikingId",hikingId);
 
@@ -119,5 +114,33 @@ public class UserHikingRepositoryDb implements UserHikingRepository {
         } else {
             return resultList.get(0);
         }
+    }
+
+    @Override
+    public List<User> statMoreThan5Hiking() {
+        SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Query q = session.createQuery("SELECT distinct _uh.user FROM UserHiking _uh WHERE _uh.user IN (SELECT _uh2.user FROM UserHiking _uh2 GROUP BY user HAVING COUNT(*) >= 5)");
+
+        List<User> resultList = q.list();
+
+        session.close();
+
+        return resultList;
+    }
+
+    @Override
+    public List<User> statCompletedMediumHike() {
+        SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        Query q = session.createQuery("select distinct _uh.user from UserHiking _uh where _uh.hiking.difficulty = 'MEDIUM'");
+
+        List<User> resultList = q.list();
+
+        session.close();
+
+        return resultList;
     }
 }

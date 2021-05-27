@@ -11,11 +11,13 @@ public class UserHiking {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private User user;
 
-    @Column(name = "hiking_id")
-    private Long hikingId;
+    @JoinColumn(name = "hiking_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Hiking hiking;
 
     public Long getId() {
         return id;
@@ -25,28 +27,28 @@ public class UserHiking {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getHikingId() {
-        return hikingId;
+    public Hiking getHiking() {
+        return hiking;
     }
 
-    public void setHikingId(Long hikingId) {
-        this.hikingId = hikingId;
+    public void setHiking(Hiking hiking) {
+        this.hiking = hiking;
     }
 
     @Override
     public String toString() {
         return "UserHiking{" +
                 "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", hikingId='" + hikingId + '\'' +
+                ", user='" + user + '\'' +
+                ", hiking='" + hiking + '\'' +
                 '}';
     }
 
